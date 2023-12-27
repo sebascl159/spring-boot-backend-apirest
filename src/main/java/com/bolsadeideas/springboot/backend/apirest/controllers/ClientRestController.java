@@ -1,6 +1,7 @@
 package com.bolsadeideas.springboot.backend.apirest.controllers;
 
 import com.bolsadeideas.springboot.backend.apirest.models.entity.Client;
+import com.bolsadeideas.springboot.backend.apirest.models.entity.ClientFilter;
 import com.bolsadeideas.springboot.backend.apirest.models.services.IClientService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -117,11 +118,6 @@ public class ClientRestController {
         Map<String, Object> response = new HashMap<>();
 
         if (result.hasErrors()) {
-            //METODO PARA JAVA 8
-            /*List<String> errors = new ArrayList<>();
-            for (FieldError err : result.getFieldErrors()) {
-                errors.add("El campo '" + err.getField() + "'" + err.getDefaultMessage());
-            }*/
             List<String> errors = result.getFieldErrors().stream().map(err -> "El campo '" + err.getField() + "'" + err.getDefaultMessage()).collect(Collectors.toList());
 
             response.put("mensaje", errors);
@@ -268,6 +264,17 @@ public class ClientRestController {
 
         return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
 
+    }
+
+    @GetMapping("/clientsFilter/{tipoUsuario}/{estado}")
+    public ResponseEntity<?> getFilterClient(@PathVariable String tipoUsuario, @PathVariable Long estado) {
+
+        List<ClientFilter> a = clientService.getFilterClient(tipoUsuario,  estado);
+
+        if(a.isEmpty())
+            return ResponseEntity.notFound().build();
+
+        return ResponseEntity.status(HttpStatus.OK).body(a);
     }
 
 

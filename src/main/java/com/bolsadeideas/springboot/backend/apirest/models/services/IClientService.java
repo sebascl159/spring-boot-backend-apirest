@@ -1,6 +1,7 @@
 package com.bolsadeideas.springboot.backend.apirest.models.services;
 
 import com.bolsadeideas.springboot.backend.apirest.models.entity.Client;
+import com.bolsadeideas.springboot.backend.apirest.models.entity.ClientFilter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -19,6 +20,8 @@ public interface IClientService {
 
     //public Optional<Client> delete(Long id);
     public void delete(Long id);
+
+    public List<ClientFilter> getFilterClient(String tipoUsuario, Long estado);
 
 
 }

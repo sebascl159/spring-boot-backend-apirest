@@ -13,6 +13,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
  */
 
-public interface IClientDao extends JpaRepository<Client, Long> { //Extender de CrudRepository<NombreDeLaTabla, TipoDatoDelIdPK>
+public interface IClientDao extends JpaRepository<Client, Long> {
+    //Extender de CrudRepository<NombreDeLaTabla, TipoDatoDelIdPK>
 
 }

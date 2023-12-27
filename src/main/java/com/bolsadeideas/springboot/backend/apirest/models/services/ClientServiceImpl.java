@@ -1,7 +1,9 @@
 package com.bolsadeideas.springboot.backend.apirest.models.services;
 
 import com.bolsadeideas.springboot.backend.apirest.models.dao.IClientDao;
+import com.bolsadeideas.springboot.backend.apirest.models.dao.IClientFilterDao;
 import com.bolsadeideas.springboot.backend.apirest.models.entity.Client;
+import com.bolsadeideas.springboot.backend.apirest.models.entity.ClientFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +18,8 @@ public class ClientServiceImpl implements IClientService {
 
     @Autowired
     private IClientDao clientDao;
+    @Autowired
+    private IClientFilterDao clientFilterDao;
 
     @Override
     @Transactional(readOnly = true)
@@ -47,6 +51,12 @@ public class ClientServiceImpl implements IClientService {
         //Optional<Client> client = clientDao.findById(id);
         //clientDao.deleteById(id);
         clientDao.deleteById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public List<ClientFilter> getFilterClient(String tipoUsuario, Long estado) {
+        return clientFilterDao.filtrarclientes(tipoUsuario, estado);
     }
 
 }

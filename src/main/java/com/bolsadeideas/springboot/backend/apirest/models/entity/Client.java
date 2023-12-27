@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -29,12 +30,20 @@ public class Client implements Serializable {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @NotNull //NO PUEDE SER VACIO
+    //@NotNull //NO PUEDE SER VACIO
     @Column(name="create_at") //SE PUEDE OMITIR SI SE LLAMA IGUAL AL CAMPO DE LA BD, SE AGREGA PARA RELACIONAR CON EL CAMPO DE LA BD
     @Temporal(TemporalType.DATE) //PARA INDICAR EQUIVALENCIA A LA BD
     private Date createAt;
 
     private String foto;
+
+    //@NotEmpty //NO PUEDE SER VACIO
+    @Column
+    private String usertype;
+
+    //@NotEmpty //NO PUEDE SER VACIO
+    @Column
+    private int userstatus;
 
     @PrePersist
     public void prePersist(){ //VA A EJECUTAR ANTES DEL LLAMADO A LA PERSISTENCIA
